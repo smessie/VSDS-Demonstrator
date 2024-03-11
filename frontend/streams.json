@@ -1,24 +1,9 @@
 {
   "streams": [
     {
-      "id": "gipod",
-      "fullName": "GIPOD",
+      "id": "rinf",
+      "fullName": "Registers of Infrastructure (RINF) LDES",
       "color": "#443939"
-    },
-    {
-      "id": "verkeersmeting",
-      "fullName": "Verkeersmetingen Verkeerscentrum LDES",
-      "color": "#FFE615"
-    },
-    {
-      "id": "bluebikes",
-      "fullName": "Blue Bikes",
-      "color": "#05c"
-    },
-    {
-      "id": "crowdscan",
-      "fullName": "CrowdScan",
-      "color": "#A4E2EB"
     }
   ]
 }

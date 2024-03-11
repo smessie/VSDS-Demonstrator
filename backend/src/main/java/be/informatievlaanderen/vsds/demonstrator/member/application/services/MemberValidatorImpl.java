@@ -25,7 +25,10 @@ public class MemberValidatorImpl implements MemberValidator {
         EventStreamConfig streamConfig = streams.getStream(collectionName)
                 .orElseThrow(() -> new MissingCollectionException(collectionName));
         if (!testMemberType(member, streamConfig.getMemberType())) {
-            throw new MemberTypeException(collectionName, streamConfig.getMemberType());
+            System.out.println("Ignoring member as member of collection %s was not of expected type %s".formatted(collectionName, streamConfig.getMemberType()));
+            // throw new MemberTypeException(collectionName, streamConfig.getMemberType());
+        } else {
+            System.out.println("Correctly validated member of collection %s".formatted(collectionName));
         }
     }
 

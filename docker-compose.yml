@@ -21,7 +21,8 @@ services:
 
   demonstrator:
     container_name: demonstrator
-    image: ghcr.io/informatievlaanderen/vsds-demonstrator:latest
+    # image: ghcr.io/informatievlaanderen/vsds-demonstrator:latest
+    build: ./
     env_file: ./docker-compose/demonstrator.env
     ports:
       - 8084:8080
