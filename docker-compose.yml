@@ -4,6 +4,8 @@ services:
   data-provider:
     image: ghcr.io/informatievlaanderen/ldi-orchestrator:latest
     container_name: demonstrator-data-provider
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     ports:
       - 8082:8082
     volumes:
