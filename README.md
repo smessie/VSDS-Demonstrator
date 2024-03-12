@@ -59,3 +59,14 @@ Run the containers in the services
 ```shell
 docker compose up
 ```
+
+## Changes undertaken for the RINF LDES
+
+- [one-time] Correctly wait upon depending services being started ([f60b775](https://github.com/smessie/VSDS-Demonstrator/commit/f60b775072ab9af1787807a098f5d01ea1a832e0)), map to correct port of process container ([9120f7b](https://github.com/smessie/VSDS-Demonstrator/commit/9120f7bba8fe0ea390b27f85041e276fb64d16a7)), update the `data-provider.config.yml` config to use the latest syntax ([da6a08b](https://github.com/smessie/VSDS-Demonstrator/commit/da6a08b2e47172b21aa50b8d040c9fe28e861db2)), make docker hostname work on Linux host systems ([dba50ea](https://github.com/smessie/VSDS-Demonstrator/commit/dba50ea3e6e3ffc876191179a9e21a58e56d1712))
+- Browse the RINF LDES manually to get an idea of its members' shape (the predicates present)
+- Configure the LDES in the `demonstrator.env`. Make sure to at least configure the `MEMBERTYPE`, `TIMESTAMPPATH`, `VERSIONPATH`, and `GEOLOCATIONPATH`. Additional properties can be configured with `PROPERTYPREDICATES_{PROPERTY}`. All values have to be literals. ([docker-compose/demonstrator.env](https://github.com/smessie/VSDS-Demonstrator/commit/3d56795db4daba1e449be10ac888351ff64bc261#diff-e0f0ff531333cebd439640ceb1b54642b83df91d09ce4ad3511f3a00141d4310))
+- Register the LDES as stream in the frontend in the `streams.json`. ([frontend/streams.json](https://github.com/smessie/VSDS-Demonstrator/commit/3d56795db4daba1e449be10ac888351ff64bc261#diff-77ca91f85a6921942331ff392de711bb7877ed0304c739bbf1e536be54b7618e))
+- Configure a pipeline for the LDES in the `data-provider.config.yml`. At least an input and output step are needed. More information about the configuration of the different steps can be found in [the documentation](https://informatievlaanderen.github.io/VSDS-Linked-Data-Interactions/ldio/ldio-inputs/ldio-ldes-client). ([docker-compose/data-provider.config.yml](https://github.com/smessie/VSDS-Demonstrator/commit/3d56795db4daba1e449be10ac888351ff64bc261#diff-519cd7ed3a9e57e666f94dcf911f52b25d632bd7fd75a6f688416786605e2515))
+    - the type (`name`) of the input will most likely be `Ldio:LdesClient` if configuring an LDES.
+    - the output is a `Ldio:RepositoryMaterialiser` with as `named-graph` the value used as `id` in the `streams.json` as configured in the previous step.
+    - Additionally, the second output is a `Ldio:HttpOut` with as endpoint `http://host.docker.internal:8084/api/{id}/members`. This hostname points to the demonstrator service, the `{id}` is again the `id` value as used in the `streams.json` from the last step.
