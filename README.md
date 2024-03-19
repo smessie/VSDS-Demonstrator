@@ -45,6 +45,8 @@ Runtime settings can be defined via `.env` files. Alternatively, an `application
 
 The [`demonstrator.env`](./docker-compose/demonstrator.env) is an `.env` example file.
 
+**Change the `VITE_APP_BASE_URL` value to the IP/domain on which the app is hosted!**
+
 #### The Data Provider Config Files
 The data provider is an instance of a LDIO-orchestrator, which also can be configured via an `.env` file or a mounted `application.yml` file. 
 For this container, we chose to go with the second scenario. More information about how to configure the LDIO-Orchestrator 

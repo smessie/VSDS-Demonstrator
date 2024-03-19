@@ -8,6 +8,7 @@ FROM maven:3.8.5-openjdk-18 AS builder
 # MAVEN: application
 FROM builder AS app-stage
 COPY . /
+COPY ./docker-compose/demonstrator.env ./frontend/.env
 RUN mvn clean install -DskipTests
 
 #
