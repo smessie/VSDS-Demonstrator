@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface MemberEntityJpaRepository extends JpaRepository<MemberEntity, String> {
 
-    @Query(value = "select l from member_entity l where l.timestamp >= :startTime and l.timestamp <= :endTime and l.collection = :collectionName")
-    List<MemberEntity> getMemberGeometryEntitiesCoveredByGeometryInTimePeriodAndCollection(@Param("collectionName") String collectionName, @Param("startTime") LocalDateTime startTime, @Param("endTime") LocalDateTime endTime);
+    @Query(value = "select l from member_entity l where l.timestamp <= :endTime and l.collection = :collectionName")
+    List<MemberEntity> getMemberGeometryEntitiesCoveredByGeometryInTimePeriodAndCollection(@Param("collectionName") String collectionName, @Param("endTime") LocalDateTime endTime);
 
     List<MemberEntity> findByCollectionAndTimestampAfter(String collection, LocalDateTime localDateTime);
 

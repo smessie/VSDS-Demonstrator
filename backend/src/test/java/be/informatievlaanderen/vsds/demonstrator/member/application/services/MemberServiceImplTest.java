@@ -82,7 +82,7 @@ class MemberServiceImplTest {
         void when_GetMembersInRectangle_then_ReturnListOfMemberDtos() throws ParseException {
             final GeoJSONReader geoJSONReader = new GeoJSONReader();
             final List<Member> members = initMembers();
-            when(repository.getMembersByGeometry(eq(rectangle), eq(COLLECTION), any(), eq(timestamp))).thenReturn(members);
+            when(repository.getMembersByGeometry(eq(rectangle), eq(COLLECTION), eq(timestamp))).thenReturn(members);
 
             final List<Member> retrievedMembers = service.getMembersInRectangle(rectangle, COLLECTION, timestamp).stream()
                     .map(dto -> new Member(dto.getMemberId(), COLLECTION, geoJSONReader.read(dto.getGeojsonGeometry()), dto.getIsVersionOf(), dto.getTimestamp(), Map.of()))
@@ -102,7 +102,7 @@ class MemberServiceImplTest {
         void when_GetMembersInRectangle_then_VerifyMemberIsInRectangle() throws ParseException {
             final WKTReader wktReader = new WKTReader();
             final GeoJSONReader geoJSONReader = new GeoJSONReader();
-            when(repository.getMembersByGeometry(eq(rectangle), eq(COLLECTION), any(), eq(timestamp))).thenReturn(initMembers());
+            when(repository.getMembersByGeometry(eq(rectangle), eq(COLLECTION), eq(timestamp))).thenReturn(initMembers());
 
             List<Geometry> retrievedMembers = service.getMembersInRectangle(rectangle, COLLECTION, timestamp).stream()
                     .map(dto -> geoJSONReader.read(dto.getGeojsonGeometry()))

@@ -31,7 +31,6 @@ class MemberRepositoryImplTest {
     private static final String OTHER_COLLECTION = "otherCollection";
     private static final String IS_VERSION_OF = "http://item.be/id";
     private static final LocalDateTime timestamp = ZonedDateTime.parse("2022-05-20T09:58:15.867Z").toLocalDateTime();
-    private static final LocalDateTime startTime = ZonedDateTime.parse("2022-05-20T09:53:15.867Z").toLocalDateTime();
     private static final LocalDateTime endTime = ZonedDateTime.parse("2022-05-20T10:03:15.867Z").toLocalDateTime();
     private static Geometry point;
     private static Geometry rectangle;
@@ -88,20 +87,20 @@ class MemberRepositoryImplTest {
                     .map(entity -> new Member(entity.getMemberId(), entity.getCollection(), entity.getGeometry(), IS_VERSION_OF, timestamp, Map.of()))
                     .toList();
 
-            when(jpaRepository.getMemberGeometryEntitiesCoveredByGeometryInTimePeriodAndCollection(COLLECTION, startTime, endTime)).thenReturn(entities);
+            when(jpaRepository.getMemberGeometryEntitiesCoveredByGeometryInTimePeriodAndCollection(COLLECTION, endTime)).thenReturn(entities);
 
-            assertEquals(members, repository.getMembersByGeometry(rectangle, COLLECTION, startTime, endTime));
+            assertEquals(members, repository.getMembersByGeometry(rectangle, COLLECTION, endTime));
 
-            verify(jpaRepository).getMemberGeometryEntitiesCoveredByGeometryInTimePeriodAndCollection(COLLECTION, startTime, endTime);
+            verify(jpaRepository).getMemberGeometryEntitiesCoveredByGeometryInTimePeriodAndCollection(COLLECTION, endTime);
         }
 
         @Test
         void when_DbContainsOnlyMembersOutsideRectangle_then_ReturnEmptyList() {
-            when(jpaRepository.getMemberGeometryEntitiesCoveredByGeometryInTimePeriodAndCollection(COLLECTION, startTime, endTime)).thenReturn(List.of());
+            when(jpaRepository.getMemberGeometryEntitiesCoveredByGeometryInTimePeriodAndCollection(COLLECTION, endTime)).thenReturn(List.of());
 
-            assertEquals(List.of(), repository.getMembersByGeometry(rectangle, COLLECTION, startTime, endTime));
+            assertEquals(List.of(), repository.getMembersByGeometry(rectangle, COLLECTION, endTime));
 
-            verify(jpaRepository).getMemberGeometryEntitiesCoveredByGeometryInTimePeriodAndCollection(COLLECTION, startTime, endTime);
+            verify(jpaRepository).getMemberGeometryEntitiesCoveredByGeometryInTimePeriodAndCollection(COLLECTION, endTime);
         }
     }
 

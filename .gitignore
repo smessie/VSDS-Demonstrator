@@ -30,7 +30,7 @@ bin/
 
 node_modules
 /frontend/node/
-/.idea/
+.idea/
 target
 *.iml
 derby.log
