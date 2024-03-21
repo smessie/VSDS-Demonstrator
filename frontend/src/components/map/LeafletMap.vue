@@ -119,8 +119,9 @@ export default {
       version: '1.1.0',
       attribution: '© GRB'
     }).addTo(this.map);
-    this.map.on("popupclose", () => this.member = null)
-    this.map.on("zoomstart", () => this.map.closePopup())
+    this.map.on("popupclose", () => this.member = null);
+    this.map.on("zoomstart", () => this.map.closePopup());
+    this.map.on("moveend", () => this.fetchMembers());
     for (let [key, value] of this.layersToShow.entries()) {
       if (value) {
         this.layers.get(key).addTo(this.map)
@@ -147,8 +148,8 @@ export default {
             timestamp: new Date(this.time).toISOString().replace("Z", "")
           },
           data: {
-            _northEast: {lat: 51.61113728, lng: 6.60827637},
-            _southWest: {lat: 49.37098431, lng: 2.38952637}
+            _northEast: this.map.getBounds().getNorthEast(),
+            _southWest: this.map.getBounds().getSouthWest()
           },
           headers: {
             'Content-type': 'application/json',
